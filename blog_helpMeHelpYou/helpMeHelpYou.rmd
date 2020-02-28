@@ -1,0 +1,253 @@
+---
+title: "Help me help you"
+subtitle: "Brief references for navigating ~~jungles~~ .rmd format variations"
+author: "<br> Nicholas Spyrison"
+date: "February 2020<br> *Repo -- [github.com/nspyrison/TODO](https://github.com/nspyrison/TODO)*"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    number_sections: yes
+    fig_caption: yes
+bibliography: bib_example.bib
+fontsize: 11
+urlcolor: blue
+---
+<!-- title: "Xaringan and friends cheatsheets" -->
+<!-- author: "<br> Nicholas Spyrison" -->
+<!-- date: "February 2020<br> *Slides -- [github.com/nspyrison/mid_candidature/_slides/](https://github.com/nspyrison/mid_candidature/_slides/)*" -->
+<!-- output: -->
+<!--   xaringan::moon_reader: -->
+<!--     css:  -->
+<!--       - "assets/custom.css" -->
+<!--       - "assets/xaringan-themer.css" -->
+<!--     self_contained: false -->
+<!--     nature: -->
+<!--       ratio: '16:9' -->
+<!--       highlightStyle: github -->
+<!--       highlightLines: true -->
+<!--       countIncrementalSlides: false -->
+<!-- --- -->
+# Motivation 
+
+> "Hi, yes, I have a greivance I would like to file: <br />
+>  I signed up to use R not yaml, css, js, bib, markdown, html, and grep."
+>
+> --- Nick Spyrison, 2018. _Loosely transcribed_
+
+Suffice it to say that it took and still takes me agrivating amounts of time just to get a new .rmd format compiling, let alone polish options and sizes. I am writing this blog and corisponding [repo](https://github.com/nspyrison/TODO) to allay such frustrations for my future self and hopefuly some others as well.
+
+```{r echo=FALSE, out.width="50%", fig.cap="_with R Markdown formating_"}
+knitr::include_graphics("./figures/helpMeHelpYou.jpg")
+```
+
+I must respond with something slightly cliche, __use the right tool for the right job__. Problems _and_ tools come in all shapes and sizes. While frustrating at times, __these frictions are the right of passage we undergo to achieve a rich diversity and quality of formats__. We should also note that they exist for completely valid reasons considering the sometimes nebulous complexity of the moving pieces between code and its output. This document focuses on formats and nuances of using R mark down files (.rmd), which stems primarily from the work of [Yihui Xie](https://yihui.org/en/), _many thanks Yihui_. I attempt to mitigate friction by providing text and directory examples.
+
+
+# Static documents: pdf {#sec:rmdRef}
+
+__Scope:__ Static .pdf documents compiled with  the `bookdown::pdf_document2` format.
+
+__Requires:__<br>
+_--- in YAML header:_<br>
+`output: bookdown::pdf_document2` ### pdf_document2 changes how fig references work to /ref()<br>
+`bibliography: bib_example.bib` ### Allows bibliography references<br>
+_--- in directory:_<br>
+`./figures/<all figures and images being used>`<br>
+`./<myBibliographyFile.bib>`<br>
+
+- A .bib reference, [@matejka_same_2017], is made with `[@matejka_same_2017]`.
+    - Find bib tags at the top of each entry in your .bib file.
+- A [Section reference](#sec:rmdRef) reference is made with`[Section reference](#sec:rmdRef)`
+    - Given that you taged your .rmd header by adding `{#sec:rmdRef}` after the header text. 
+    - The prefix 'sec:' is not magical, but is an advisable habit to adopt for organization.
+    - Alternatively, section \ref{sec:rmdRef} with `\ref{sec:rmdRef}` should create a hyperlinked number for the section. (no '#' in '#sec' and no '@' in `\@ref{}` as found in some other formats).
+- A figure <!--\ref(fig:doge)--> reference is made with `\ref(fig:doge)` (no '@'; in `\@ref(fig:doge)` as found in some other formats).
+    - _Note:_ the prefix 'fig:' is not automatically added to the name of the R chunk, 'doge' in this case.
+
+```{r doge, echo=F, out.width="20%", fig.cap="A figure caption: _wow, such figure, much caption._"}
+knitr::include_graphics("./figures/doge.jpg")
+```
+
+(ref:thisIsDog-cap) A figure capation made outside of an `R` chunk arguments. Good for when you do _fancy_ formating or inline $\LaTeX$ code. Apparently not compatible with 'html_document'.
+```{r thisIsDog, echo=F, out.width="20%", fig.cap="(ref:thisIsDog-cap)"}
+knitr::include_graphics("./figures/thisIsDog.jpg")
+```
+
+
+
+
+---
+
+# Slides (.html): a crash course on using `xaringan`
+
+__Scope:__ Presentation slides (.html) produced with `xaringan::moon_reader`.
+
+__Requires:__<br>
+_--- in YAML:_<br>
+`output: xaringan::moon_reader`<br>
+
+- Use __---__ to create a new slide, provided that it's followed by
+- Any __#__ header (of any level) becomes the the slide title.
+- Bullets: top level are made with `'- '`, the space is important.
+    - Following levels needs indentation of 4 spaces (2 tabs by default), ie. `'    - '`
+- Use `--` to create an incremental slide break, hiding later content
+- `Xaringan` is very sensitive to white space, when in doubt make sure newslides, titles, and content.
+- `Xaringan` is sensitive to comments; use `<!-- <comment> -->` with caution!
+
+
+# Basic formating your slides using .css files
+
+__Scope:__ Presentation slides (.html) produced with `xaringan::moon_reader`.
+
+__Requires:__<br>
+_--- in YAML:_<br>
+`output:`<br>
+$\:\:$`xaringan::moon_reader:`<br>
+$\:\:\:\:$`css:`<br>
+$\:\:\:\:\:\:$` - ninjutsu` ### or your next favorite .css file, like: # `- "assets/xaringan-themer.css"`<br>
+$\:\:\:\:\:\:$` - "assets/custom.css"`<br>
+_--- in directory:_<br>
+`./assets/<All .css files used>`<br>
+
+- Call .css `.funtions[]`, by nesting content inside, with `'.functionNm['`, and `']'` each on their own line:
+
+`.pull-left[`<br>
+`Creates a left column...`<br>
+`]`<br>
+`.pull-right[`<br>
+`... and a right column respectively.`<br>
+`]`<br>
+
+- Create your own .css functions in `./assests/custom.css`, for instance:
+
+`/* create your own .css functions, like there for changing body text:*/`<br>
+`.larger  {font-size: 140%}`<br>
+`.large   {font-size: 120%}`<br>
+`.small   {font-size: 80% }`<br>
+`.smaller {font-size: 60% }`<br>
+
+- You can do some neat stuff with nest relative fucntions. 
+<!-- _ie._:<br> -->
+
+<!-- `.large[.large[`<br> -->
+<!-- `- Font size at %140 from nested .large[.large[]].`<br> -->
+<!-- `]]`<br> -->
+
+<!-- or<br> -->
+<!-- `.pull-left[`<br> -->
+<!-- $\:\:$`Parent left column`<br><br> -->
+<!-- $\:\:$`.pull-left[`<br> -->
+<!-- $\:\:\:\:$`Child left column`<br> -->
+<!-- $\:\:$`]`<br> -->
+<!-- $\:\:$`.pull-rigt[`<br> -->
+<!-- $\:\:\:\:$`Child Right column`<br> -->
+<!-- $\:\:$`]`<br><br> -->
+<!-- `.pull-right[`<br> -->
+<!-- $\:\:$`Parent right column.`<br> -->
+<!-- `]`<br> -->
+
+
+
+
+---
+
+# Wrap up
+
+Thanks for the read. Let me know if this helped, or if there are other topics you need need help getting started wih. Drop me a line by email at [spyrison@gmail.com](mailto:spyrison@gmail.com).
+
+# PS: Code hygene / formating
+
+A bit off topic, but it bears repeating. __Practice good code hygene.__ If you arn't yet familiar with this term it doubly applies to you. I suggest reading the [Tidyverse Style Guide](https://style.tidyverse.org/) most of it may seem pedantic, but they are listed for a reason. Not everything will be equally important based on the size of you file, directory, and number of collaborators, but it's better to form good habits early. 
+
+I _strongly, strongly suggest_ at least:
+
+- Proper code indentation and nesting!!!!__
+    - When in doubt, use the hotkey for intenting (Cntl + i) on the current line or selection. 
+- Keep each line to 80 characters
+    - 'Show margin (Margin column 80)': `RStudio > Tools > Global Options... > Code > Display > Show margin [x]`
+    - This lets you know when your lines are too long
+    - Ensures you leave yourself (and others) realestate for another pane.
+- Assignment:
+    - Use '<-' rather than '=' _ie._  use `a <- 5`, not `a = 5`
+    - Use left-handed assignment _ie._ use `a <- 5`, not `5 -> a `
+- Structure:
+    - Use 'Show document outline (Ctrl + Shift + O)'; button in the top right of the file pane, looks like indented lines.
+    - In .r files: create outline references by ending a comment with 4 or more trailing '-' _ie._ `# Initialize vars -----`
+    - In .rmd files: create outline references using header and heder levels
+    _ie._ `# Introduction` ... `## Motivation`
+
+
+
+
+<!-- --- 
+
+# Spice up your .html with `icon` and `anicon`
+
+__Scope:__  Any .html format.
+__Requires:__<br>
+_--- in YAML:_<br>
+`output: xaringan::moon_reader`<br>
+_or_<br>
+`output: html_document`<br>
+
+_--- library installation:_<br>
+`remotes::install_github("ropenscilabs/icon")`
+`remotes::install_github("emitanaka/anicon")`
+
+## `icon`
+
+There are `r length(icon::fa_iconList) + length(icon::ii_iconList) + length(icon::ai_iconList)` icons available within icon.
+
+`r icon::fa("smile")`
+`r icon::fa("smile", size = 3, rotate = 180, color = "#1E90FF")`
+`r icon::fa("smile", size = 5, color = "#7CFC00", animate="spin")`
+
+created with:
+```{r echo=T}
+icon::fa("spinner", size = 4, animate = "spin")
+```
+
+- Don't forget to use inline R commands: 'r icon::fa("bell")' `r icon::fa("bell")`, neato!
+- List options with `icon::fa_iconList`, `icon::ii_iconList`, `icon::ai_iconList`
+
+## `anicon`
+
+I am not able to get anicon working in `html_document`, aside from text...
+
+---
+Maybe anicon isn't fully working in `html_document`?
+
+```{r}
+anicon::faa("leaf")
+```
+`r anicon::faa("sun", size=5, animate = "passing", speed = 'slow')`<br>
+`r anicon::faa("moon", size=5, animate = "passing-reverse", speed = 'slow')` 
+---
+
+<br><br>
+`r anicon::nia("Deal with it!", size = 3, animate = "tada", speed = 'slow')`
+<br><br>
+
+
+__Also see:__<br>
+--- [Mitch's icon slides](https://slides.mitchelloharawild.com/icon/#1)<br>
+--- [Emi's icon slides](https://anicon.netlify.com/#1)<br>
+
+
+---
+
+# Suggested RStudo settings
+
+Because .YAML headers, `xaringan`, and some general .rmd formating is so sensitive to the precice number of spaces and line returns:
+
+- 'Show whitespace characters': `RStudio > Tools > Global Options... > Code > Display > Show whitespace characters [x]`
+
+Because navigative and traversing documents takes a lot of time:
+
+- Foster good organization with headers and different header levels
+- Use 'Show document outline (Ctrl + Shift + O)'; button in the top right of the file pane, looks like indented lines.
+    - Using headers will automatically create content references you can click on in the document outline. _ie._ `# Introduction` ... `## Motivation`
+    - In .r files: create your outline reference by ending a comment with 4 or more trailing '-'!! _ie._ `# Initialize vars -----`
+
+-->

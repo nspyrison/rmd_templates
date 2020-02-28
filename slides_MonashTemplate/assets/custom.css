@@ -1,0 +1,37 @@
+/* This first chunk changes bullets to Di's graph and pie charts */
+
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+
+ul li {
+  list-style-type: none;
+}
+ul li:before {
+  content: "\f080";
+  font-size: 28px;
+  font-family: "FontAwesome";
+  margin-right: 10px;
+  color: #D93F00;
+}
+ul li li:before {
+  content: "\f200";
+  font-size: 20px;
+  font-family: "FontAwesome";
+  margin-right: 5px;
+  color: #D93F00;
+}
+
+/* create your own .css functions, like there for changing body text:*/ 
+.larger  {font-size: 140%}
+.large   {font-size: 120%}
+.small   {font-size: 80% }
+.smaller {font-size: 60% }
+/*
+.pull-left {
+  float: left;
+  width: 50%;
+}
+.pull-right {
+  float: right;
+  width: 50%;
+}
+*/
