@@ -19,7 +19,7 @@ header-includes:
  - \usepackage{graphicx} ### To insert Monash crest in title page
 ---
 
-```{r include=FALSE, cache=FALSE}
+```{r setup include=FALSE, cache=FALSE}
 ### I like to keep it simple and hard coded, with minimal R code called in
 ###    kniting an .rmd and use a seprate .r script for saving off firgures.
 library(knitr) 
