@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Title line</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Arthur Author   institution, department    Supervisors: Prof. Jane Doe,  Prof. Jack Smith" />
+    <link rel="stylesheet" href="assets\custom.css" type="text/css" />
+    <link rel="stylesheet" href="assets\xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Title line
+### <br> Arthur Author <br> institution, department <br><br> Supervisors: Prof. Jane Doe,<br> Prof. Jack Smith<br>
+### ABC seminar <br> DD Mmmmm YYYY <br><br> <em>Slides – <a href="https://github.com/nspyrison/rmd_templates/slides_lite/">github.com/nspyrison/rmd_templates/slides_lite/</a></em>
+
+---
+
+
+
+## Basics
+
+- Use __---__ to create a new slide, 
+    - Provided that it's followed by any level of __#__ header, which becomes the title of the slide.
+- Bullets: top-level are made with `'- '`, the space is important.
+    - Sub-level bullets need indentation of 4 spaces (2 tabs by default), _ie._ `'    - '`.
+
+Use `--` to create an incremental slide break, hiding later content.
+--
+
+- `Xaringan` is very sensitive to white space, make sure to leave plenty of "breathing room"; an empty line before and after almost every bit of content.
+- `Xaringan` is sensitive to comments; use `&lt;!-- &lt;comments&gt; --&gt;` sparingly!
+
+--
+
+Numbered lists with `N. content`:
+
+1. item 1 
+2. item 2
+
+---
+
+## Second slide
+
+Can emphasize with quote blocks
+
+&gt; In the title slide; can use &lt;br&gt; to customize further!
+--
+
+
+high an r line by starting the line with an asterisk; _ie._ `* 3 + 4`
+
+
+```r
+1 + 2
+* 3 + 4
+```
+
+--
+- Export to .pdf slides -- with `pagedown` and Chrome
+
+
+```r
+## See: https://github.com/yihui/xaringan/wiki/Export-Slides-to-PDF
+install.packages(c("pagedown", "xaringan"))
+## Make sure you have pagedown &gt;= 0.2 and xaringan &gt;= 0.9; if not, run
+pagedown::chrome_print("path/to/your/slides.rmd")
+
+## Or just pass the HTML output file path to chrome_print()
+pagedown::chrome_print("path/to/your/slides.html")
+```
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLanguage": "r",
+"highlightLines": true,
+"highlightSpans": false,
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current%/%total%",
+"navigation": {
+"scroll": true,
+"touch": true,
+"click": true
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

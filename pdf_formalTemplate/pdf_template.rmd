@@ -20,32 +20,45 @@ header-includes:
 ---
 
 ```{r setup include=FALSE, cache=FALSE}
-### I like to keep it simple and hard coded, with minimal R code called in
-###    kniting an .rmd and use a seprate .r script for saving off firgures.
-library(knitr) 
-knitr::opts_chunk$set(results     = "hide",   # Chunk results, render formating:
-                      #-- Expectes: 'markup' TeX env, 'asis' in line, 'hold' output to the bottom of code, 'hide' output
-                      ### R PLOTS:
-                      include     = TRUE,     # Include R Plots?
-                      fig.align   = "center", #
-                      fig.height  = 2,        # Figure height [inches, default: 5]
-                      fig.width   = 3,        # Figure width  [inches, default: 5]
-                      fig.show    = "hold",   # 
-                      fig.pos     = "h",      # "h"olds the postion closer than floating 
-                      out.extra   = '',       # Required for fig.pos = "h"
-                      ### TEXT DISPLAY:
-                      echo        = FALSE,    # Echo code executed?
-                      message     = FALSE,    # Display message text?
-                      warning     = FALSE,    # Display warning text?
-                      error       = FALSE,    # Display error text?
-                      comment     = NA,       # Comment character prefix (defaults to '##', NA removes comments? '' does?)
-                      ### CLEAN UP:
-                      collapse    = TRUE,     # Collapse chunk results "twisty" in the .rmd file only?
-                      tidy        = FALSE,    # Tidy-up code format? 
-                      #-- Expects: F, T=formatR::tidy_source(), 'styler'= styler::style_text() 
-                      strip.white = TRUE,     # Remove preceeding and trailing line returns from chunks?
-                      cache       = FALSE,    # Keep cache files 
-                      cache.lazy  = FALSE     # Keep cache files 
+## Load packages here.
+library(knitr)
+knitr::opts_chunk$set(
+  ###### TEXT DISPLAY:
+  echo        = TRUE,     # Echo code executed?
+  message     = FALSE,    # Display message text?
+  warning     = FALSE,    # Display warning text?
+  error       = FALSE,    # Display error text?
+  strip.white = TRUE,     # Remove preceeding and trailing line returns from chunks?
+  include     = TRUE,     # Include chunk output in compiled document?
+  tidy        = FALSE,    # Tidy-up chunk code format?
+  ## Expects: FALSE, TRUE=formatR::tidy_source(), "styler"= styler::style_text().
+  results     = "hide",   # Chunk results, render formating:
+  ## Expectes: "markup"; TeX env, "asis"; in line,
+  ##   "hold"; output to the bottom of code, "hide"; no display.
+  
+  ###### FIGURES AND PLOTS:
+  #### Scope: `fig.*` arguments apply to figures produced directly in the .rmd document.
+  fig.align   = "center", # Figure alignment. Expects: "left", "right", "center", "default"
+  fig.width   = 8,        # Figure width  [in inches, default: 5]
+  fig.height  = 5,        # Figure height [in inches, default: 5]
+  # fig.asp,  = 1.62      # Figure aspect ratio. do not use with both width and height.
+  fig.show    = "hold",   # Figure output formating
+  ## Expects "asis"; where generated, "hold"; hold plot display to end of chunk,
+  ##   "animate"; wrap all plots into an animation, "hide"; no display.
+  fig.pos     = "h",      # "h"olds the postion closer than floating (default: "")
+  out.extra   = "",       # Additionally required for fig.pos = "h"
+  #### Scope: `out.*` arguments apply to external images (.jpg, .png, .gif) files 
+  ####   AS WELL AS, figures produced directly in the .rmd document.
+  out.width   = "100%",    # Expects fromats like: "3in", "8cm", "80%", ".8\\linewidth", for HTML: "300px"
+  #out.height = "100%",   # Expects fromats like: "3in", "8cm", "80%", ".8\\linewidth", for HTML: "300px"
+  ## Try only specifying width or height before applying both.
+  
+  ###### COMPILING AND SOFT DISPLAY:
+  collapse    = TRUE,     # Collapse chunk sections in the .rmd file?
+  cache       = FALSE,    # Keep cache files? (default: TRUE)
+  ## If output doesn't seem to reflect recent changes, set to FALSE (may also slow compilation time)
+  cache.lazy  = FALSE     # Lazily load objects? FALSE is eager loading. (default: TRUE).
+  ## If large objects are not behaving, set to FALSE.
 )
 ```
 
@@ -106,7 +119,7 @@ equation block: $$E = mc^{2}$$
 
 A footnote [^2]
 
-[^2]: The bottom text. 
+[^2]: footnote bottom text. 
 
 
 ### Other sources

@@ -1,0 +1,75 @@
+---
+title: "Setup and knitr chunk options for .rmd files."
+output: html_document
+---
+
+For a more lengthy digest consult [Yihui's chapter 'Options'.](https://yihui.org/knitr/options/)
+
+## Intermediate-level chunk options
+
+```{r setup_example, include=T, eval=F, results='markup'}
+\```{r setup, include=FALSE}
+## Load packages here.
+library(knitr)
+knitr::opts_chunk$set(
+  ###### TEXT DISPLAY:
+  echo        = TRUE,     # Echo code executed?
+  message     = FALSE,    # Display message text?
+  warning     = FALSE,    # Display warning text?
+  error       = FALSE,    # Display error text?
+  strip.white = TRUE,     # Remove preceeding and trailing line returns from chunks?
+  include     = TRUE,     # Include chunk output in compiled document?
+  tidy        = FALSE,    # Tidy-up chunk code format?
+  ## Expects: FALSE, TRUE=formatR::tidy_source(), "styler"= styler::style_text().
+  results     = "hide",   # Chunk results, render formating:
+  ## Expectes: "markup"; TeX env, "asis"; in line,
+  ##   "hold"; output to the bottom of code, "hide"; no display.
+  
+  ###### FIGURES AND PLOTS:
+  #### Scope: `fig.*` arguments apply to figures produced directly in the .rmd document.
+  fig.align   = "center", # Figure alignment. Expects: "left", "right", "center", "default"
+  fig.width   = 8,        # Figure width  [in inches, default: 5]
+  fig.height  = 5,        # Figure height [in inches, default: 5]
+  # fig.asp,  = 1.62      # Figure aspect ratio. do not use with both width and height.
+  fig.show    = "hold",   # Figure output formating
+  ## Expects "asis"; where generated, "hold"; hold plot display to end of chunk,
+  ##   "animate"; wrap all plots into an animation, "hide"; no display.
+  fig.pos     = "h",      # "h"olds the postion closer than floating (default: "")
+  out.extra   = "",       # Additionally required for fig.pos = "h"
+  #### Scope: `out.*` arguments apply to external images (.jpg, .png, .gif) files 
+  ####   AS WELL AS, figures produced directly in the .rmd document.
+  out.width   = "100%",   # Expects fromats like: "3in", "8cm", "80%", ".8\\linewidth", for HTML: "300px"
+  #out.height = "100%",   # Expects fromats like: "3in", "8cm", "80%", ".8\\linewidth", for HTML: "300px"
+  ## Try only specifying width or height before applying both.
+  
+  ###### COMPILING AND SOFT DISPLAY:
+  collapse    = TRUE,     # Collapse chunk sections in the .rmd file?
+  cache       = FALSE,    # Keep cache files? (default: TRUE)
+  ## If output doesn't seem to reflect recent changes, set to FALSE (may also slow compilation time)
+  cache.lazy  = FALSE     # Lazily load objects? FALSE is eager loading. (default: TRUE).
+  ## If large objects are not behaving, set to FALSE.
+)
+\```
+```
+
+## chunk options, lite:
+
+```{r setup_example_condensed, include=T, eval=F, results='markup'}
+\```{r setup_condensed, include=F}
+## Load packages here.
+library(knitr)
+knitr::opts_chunk$set(
+  message   = F, warning = F, error = F,
+  results   = "asis",                # Opts: "asis", "markup", "hold", "hide"
+  fig.align = "center",              # Opts: "left", "right", "center", "default"
+  fig.width = 8, fig.height = 5,
+  out.width = "100%",
+  fig.pos   = "h", out.extra   = "", # Figures forced closer to chunk location.
+  collapse  = TRUE, cache = FALSE, cache.lazy  = FALSE
+)
+\```
+```
+
+__Remember:__ These same options can be customized for each code chunk
+
+_ie._ `\```{r chunk_name, include=T, cache=F, eval=F, results="markup"}`

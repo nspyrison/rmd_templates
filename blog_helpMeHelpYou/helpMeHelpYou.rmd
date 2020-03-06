@@ -45,7 +45,7 @@ I recognize this debatably goes against some of the benefits of R markdown. Howe
 
 Below I outline some of the more common chunk options and try to explain what they do and list expected values.
 
-```{r chunkOpts, child = "../Setup_and_chunk_options.rmd"}
+```{r chunkOpts, child = "../setup&ChunkOptions.rmd"}
 # To changes the title slide: edit ./components/titleslide.Rmd, note no yaml.
 ```
 
@@ -67,6 +67,42 @@ _--- in directory:_<br>
 ./<myBibliographyFile.bib>
 ```
 
+__YAML template-lite:__
+---
+```{r eval=F}
+output: 
+    bookdown::pdf_document2: 
+      keep_tex: yes
+      toc_depth: 2
+      fig_caption: yes ### Also needed for fig cross references
+bibliography: bib_example.bib
+```
+__YAML template:__
+```{r eval=F}
+---
+# setspace: doublespacing
+output: 
+    bookdown::pdf_document2: 
+      ### pdf_document2 changes how fig references work; /@ref()
+      includes: 
+        before_body: title.sty
+      keep_tex: no
+      number_sections: yes
+      toc_depth: 2
+      fig_caption: yes ### Also needed for fig cross references
+bibliography: bib_example.bib
+fontsize: 11
+urlcolor: blue
+### LaTeX preamble
+header-includes: 
+ - \usepackage{setspace} ### For title page spacing
+ - \usepackage{hyperref} ### For all sorts of linking
+ - \usepackage{graphicx} ### To insert Monash crest in title page
+---
+```
+
+---
+
 - A .bib reference, [@matejka_same_2017], is made with `[@matejka_same_2017]`.
     - Find bib tags at the top of each entry in your .bib file.
 - A [section reference](#sec:rmdRef) reference is made with `[Section reference](#sec:pdf)`
@@ -87,9 +123,6 @@ Alternatively in a `pdf2_document` .rmd file you can define long or complex capt
 knitr::include_graphics("./figures/thisIsDog.jpg")
 ```
 
-
-
-
 ---
 
 # Dynamic HTML slides with `xaringan`
@@ -99,6 +132,31 @@ __Scope:__ Presentation slides (.html) produced with `xaringan::moon_reader`.
 __Requires:__<br>
 _--- in YAML:_<br>
 `output: xaringan::moon_reader`<br>
+
+__YAML template-lite:__
+```{r eval=F}
+---
+title: "Title line"
+author: "<br> Arthor Author <br> institution, department <br><br> Supervisors: Prof. Jane Doe,<br> Prof. Jack Smith<br>"
+date: "ABC seminar <br> DD Mmmmm YYYY <br><br> _Slides -- [github.com/nspyrison/rmd_templates/slides_lite/](https://github.com/nspyrison/rmd_templates/slides_lite/)_"
+output:
+  xaringan::moon_reader:
+    css: 
+      - "assets/custom.css"
+      - "assets/xaringan-themer.css"
+    self_contained: false
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      slideNumberFormat: '%current%/%total%'
+      navigation:
+        scroll: true 
+        touch: true
+        click: true
+---
+```
 
 ## `xaringan` syntax, _ninja style_
 
@@ -193,9 +251,9 @@ Because navigating and traversing documents takes too long:
 
 # Wrap up
 
-Thanks for the read. Let me know if this helped, or if there are other topics you need help getting started with. Drop me a line by email at [spyrison@gmail.com](mailto:spyrison@gmail.com).
+Thanks for the read. Let me know if this helped, or you have any other feedback at [spyrison@gmail.com](mailto:spyrison@gmail.com).
 
-# PS: Code hygiene/formating
+# P.S. Code hygiene/formating
 
 A bit off-topic, but it bears repeating. __Practice good code hygiene.__ If you are not yet familiar with this term it doubly applies to you. I suggest reading the [Tidyverse Style Guide](https://style.tidyverse.org/) most of it may seem pedantic, but they are listed for a reason. Not everything will be equally important based on the size of your file, directory, and the number of collaborators, but it's better to form good habits early. 
 

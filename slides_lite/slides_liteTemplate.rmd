@@ -1,0 +1,89 @@
+---
+title: "Title line"
+author: "<br> Arthur Author <br> institution, department <br><br> Supervisors: Prof. Jane Doe,<br> Prof. Jack Smith<br>"
+date: "ABC seminar <br> DD Mmmmm YYYY <br><br> _Slides -- [github.com/nspyrison/rmd_templates/slides_lite/](https://github.com/nspyrison/rmd_templates/slides_lite/)_"
+output:
+  xaringan::moon_reader:
+    css: 
+      - "assets/custom.css"
+      - "assets/xaringan-themer.css"
+    self_contained: false
+    nature:
+      ratio: '16:9'
+      highlightStyle: github 
+      highlightLanguage: r 
+      highlightLines: true
+      highlightSpans: false 
+      countIncrementalSlides: false
+      slideNumberFormat: '%current%/%total%'
+      navigation:
+        scroll: true 
+        touch: true
+        click: true
+---
+```{r setup_pres, include = FALSE}
+knitr::opts_chunk$set(eval      = TRUE,   # R code 
+                      echo      = FALSE,  # code text
+                      include   = TRUE,   # plots
+                      results   = 'asis', # text 'markup' 'asis' 'hold' 'hide'
+                      fig.align = "center",
+                      collapse  = TRUE,
+                      message   = F, warning = F, error = F, 
+                      cache     = F, cache.lazy = F
+)
+library(magrittr)
+library(knitr)
+library(kableExtra)
+```
+
+## Basics
+
+- Use __---__ to create a new slide, 
+    - Provided that it's followed by any level of __#__ header, which becomes the title of the slide.
+- Bullets: top-level are made with `'- '`, the space is important.
+    - Sub-level bullets need indentation of 4 spaces (2 tabs by default), _ie._ `'    - '`.
+
+Use `--` to create an incremental slide break, hiding later content.
+--
+
+- `Xaringan` is very sensitive to white space, make sure to leave plenty of "breathing room"; an empty line before and after almost every bit of content.
+- `Xaringan` is sensitive to comments; use `<!-- <comments> -->` sparingly!
+
+--
+
+Numbered lists with `N. content`:
+
+1. item 1 
+2. item 2
+
+---
+
+## Second slide
+
+Can emphasize with quote blocks
+
+> In the title slide; can use <br> to customize further!
+--
+
+
+high an r line by starting the line with an asterisk; _ie._ `* 3 + 4`
+
+```{r eval=F, echo=T}
+1 + 2
+* 3 + 4
+```
+
+--
+- Export to .pdf slides -- with `pagedown` and Chrome
+
+```{r eval=F, echo=T}
+## See: https://github.com/yihui/xaringan/wiki/Export-Slides-to-PDF
+install.packages(c("pagedown", "xaringan"))
+## Make sure you have pagedown >= 0.2 and xaringan >= 0.9; if not, run
+pagedown::chrome_print("path/to/your/slides.rmd")
+
+## Or just pass the HTML output file path to chrome_print()
+pagedown::chrome_print("path/to/your/slides.html")
+```
+
+
