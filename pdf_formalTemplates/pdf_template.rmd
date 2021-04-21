@@ -66,6 +66,7 @@ knitr::opts_chunk$set(
 # A comment
 ```
 
+# NOTE THAT EACH YAML IS DIFFERENT, IT'S BEST TO START A NEW FILE AND GO FROM THEIR EXAMPLE.
 
 # Rmarkdown cheatsheet -- top level header {#sec:intro}
 

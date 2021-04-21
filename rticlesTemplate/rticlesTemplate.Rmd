@@ -1,0 +1,35 @@
+---
+title: Title here
+## Hide authors? expects: 0, 1
+blinded: 0
+authors: 
+- name: Author 1
+  thanks: The authors gratefully acknowledge ...
+  affiliation: Department of YYY, University of XXX
+- name: Author 2
+  affiliation: Department of ZZZ, University of WWW
+keywords:
+- item 1
+- item 2, using latex list format, not comma separated
+abstract: |
+  abstract text, new line with YAML format,
+  | newline, |
+## Sepecify .bib file in local directory
+bibliography: bibliography.bib
+## Which {rticles} template.
+## Download {rticles}, see options in: File> New File> R Markdown...
+output: rticles::asa_article
+---
+
+# NOTE THAT EACH YAML IS DIFFERENT, IT'S BEST TO START A NEW FILE AND GO FROM THEIR EXAMPLE 
+
+This template demonstrates some of the basic latex you'll need to know to create a ASA article.
+
+\section{Verifications}
+\label{sec:verify}
+This section will be just long enough to illustrate what a full page of
+text looks like, for margins and spacing.
+
+@Campbell02 @Schubert13 [@Chi81]
+
+The quick brown fox jumped over the lazy dog.
